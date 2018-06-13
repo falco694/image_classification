@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}結果一覧{% end %} {% block content %}
+{% for image in imagelist %}
+<table border="0">
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <img src="{{ static_url('uploaddata/'+image[0]+'.jpeg') }}" width="128px" height="128px">
+                        </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td>
+            <table class="table">
+                    <tr>
+                        <td>
+                            {{image[1]}}
+                        </td>
+                    </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<br />
+{% end %}
+{% end %}

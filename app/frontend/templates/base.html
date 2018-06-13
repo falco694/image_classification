@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% end %}</title>
+        <link rel="icon" href="{{ static_url('images/favicon.ico') }}">
+        <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ static_url('css/jquery.ui.chatbox.css') }}" />        
+        <link rel="stylesheet" href="{{ static_url('css/style.css') }}" >
+        <script src="{{ static_url('js/jquery.min.js') }}"></script>        
+        <script src="{{ static_url('js/jquery-ui.js') }}"></script>        
+        <script src="{{ static_url('js/jquery.ui.chatbox.js') }}"></script>        
+        <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+        <script>
+            var protocol = window.location.protocol == "http:" ? "ws:" : "wss:";
+            var socket = new WebSocket(protocol + "//" + location.host + "/chat");
+
+            function sendAction(img_path, msg) {
+
+                var message = {
+                    img_path: img_path,
+                    message: msg
+                };
+
+                socket.send(JSON.stringify(message));
+            }
+
+            socket.onopen = function(data) {
+            }
+
+            socket.onclose = function() {
+            }
+
+            socket.onmessage = function(event) {
+                var data = JSON.parse(event.data);
+                if ('messages' in data) {
+                    var messages = data.messages;
+                    for (var i=0; i<messages.length; i++) {
+                        $("#chat_div").chatbox("option", "boxManager").addMsg(messages[i].img_path, messages[i].message, false);
+                    }
+                } else {
+                    $("#chat_div").chatbox("option", "boxManager").addMsg(data.img_path, data.message, false);
+                }
+            }
+
+            $(document).ready(function() {
+                $("#chat_div").chatbox(
+                    {id : "chat_div",
+                    title : "匿名チャット",
+                    user : "hoge",
+                    offset: 0,
+                    width: 500,
+                    messageSent: function(id, user, msg){
+                        var img_path = $('#face').attr('src');
+                        this.boxManager.addMsg(img_path, msg, true);
+                        sendAction(img_path, msg);
+                }});
+            });
+        </script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">ようこそ</a>
+                    <a class="navbar-brand" href="/imageclass">画像分類</a>
+                    <a class="navbar-brand" href="/imagelist">結果一覧</a>
+                 </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+                <br />
+                {% block content %}
+                {% end %}
+                <img src="{{ static_url('images/cat.gif') }}" id="face" style="visibility:hidden" class="face">
+                <div id="chat_div" class="chat"></div>
+            </div>
+        </div>
+        <div class="container">
+            <footer>
+                <p>&copy; 2017 FKST Company </p>
+            </footer>
+        </div>
+    </body>
+</html>

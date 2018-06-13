@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}画像分類{% end %} {% block content %}
+<script>
+    $(document).on('change', ':file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.parent().parent().next(':text').val(label);
+    });
+</script>
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="input-group">
+        <label class="input-group-btn">
+            <span class="btn btn-primary">
+                ファイル選択
+                <input type="file" name="file" style="display:none">
+            </span>
+        </label>
+        <input type="text" class="form-control" readonly="">
+    </div>
+    <br />
+    <input type="submit" value="アップロードし解析実行" class="btn btn-primary"> {% module xsrf_form_html() %}
+</form>
+<br />
+<table border="0">
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <img src="{{ static_url('uploaddata/'+pictureid+'.jpeg') }}" {% if pictureid=="" %}display:none;{% else %}width="128px" height="128px" {% end %}>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        {% if result != "" %}
+        <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>カテゴリ</th>
+                        <th>確率(0~1)</th>
+                    </tr>
+                </thead>
+                <tboby>
+                    {% for item in result %}
+                    <tr>
+                        <td>{{item[0]}}</td>
+                        <td>{{item[1]}}</td>
+                    </tr>
+                    {% end %}
+                </tboby>
+            </table>
+        </td>
+        {% else %} {% end %}
+    </tr>
+</table>
+{% end %}
