@@ -4,6 +4,7 @@
 dataset/
 *.hdf5
 __pycache__
+app/frontend/model
 !app/frontend/static/uploaddata/
 app/frontend/static/uploaddata/*
 !app/frontend/static/uploaddata/.gitkeep
