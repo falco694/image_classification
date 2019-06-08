@@ -39,4 +39,3 @@ def main(uploadfile = ""):
 
 if __name__ == "__main__":
     main("./dataset/9053.jpg")
-    # main("C:/Users/falco/Desktop/dataset/docorcat/test/9053.jpg")
