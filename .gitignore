@@ -7,3 +7,4 @@ __pycache__
 app/frontend/static/uploaddata/*
 app/tools/model
 env
+database.tsv
