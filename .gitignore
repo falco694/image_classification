@@ -4,7 +4,9 @@
 dataset/
 *.hdf5
 __pycache__
-app/frontend/static/uploaddata/*
+!app/frontend/static/uploaddata/
+!app/frontend/static/uploaddata/*
+!app/frontend/static/uploaddata/.gitkeep
 app/tools/model
 env
 database.tsv
