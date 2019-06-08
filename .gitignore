@@ -7,7 +7,7 @@ __pycache__
 !app/frontend/static/uploaddata/
 app/frontend/static/uploaddata/*
 !app/frontend/static/uploaddata/.gitkeep
-app/tools/model
+app/tools/model*
 app/tools/label.txt
 env
 database.tsv
