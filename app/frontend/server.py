@@ -33,7 +33,7 @@ settings = {
 }
 
 def main():
-    options = tornado.options.options    
+    options = tornado.options.options
     tornado.options.parse_command_line()
     app = tornado.web.Application(handlers, **settings, debug=options.debug)
     app.listen(options.port)
