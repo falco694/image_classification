@@ -1,5 +1,9 @@
+.history
+.ipynb_checkpoints
+.vscode
 dataset/
 *.hdf5
-.history/
 __pycache__
-/app/frontend/static/uploaddata/*
+app/frontend/static/uploaddata/*
+app/tools/model
+env
